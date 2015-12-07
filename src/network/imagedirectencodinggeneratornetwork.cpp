@@ -101,6 +101,7 @@ bool ImageDirectEncodingGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *s
     QMap<QString, QVariant> config_network;
     config_network["width"] = _config.width;
     config_network["height"] = _config.height;
+    config_network["Save path"] = _config.image_path;
     writeConfigStart("ImageDirectEncodingGeneratorNetwork", config_network, stream);
     writeConfigEnd(stream);
     return true;

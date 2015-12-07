@@ -20,10 +20,12 @@ win32: LIBS += -L$$PWD/../qnn/ -lqnn0
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += \ 
-    src/network/imagedirectencodinggeneratornetwork.cpp
+    src/network/imagedirectencodinggeneratornetwork.cpp \
+    src/network/imagecppngeneratornetwork.cpp
 
 HEADERS += \ 
-    src/network/imagedirectencodinggeneratornetwork.h
+    src/network/imagedirectencodinggeneratornetwork.h \
+    src/network/imagecppngeneratornetwork.h
 
 DESTDIR = $$PWD
 
