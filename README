@@ -1,0 +1,10 @@
+qnn-image-generators
+   by Marcus Soll
+
+-------------------------------------------------------------------------------
+
+qnn-image-generators is an addition to QNeuralNetworks. it adds special
+networks which can be used to generate images.
+
+qnn-image-generators is licensed under the terms of the GNU Lesser General 
+Public License Version 3 or (at your option) any later version.
