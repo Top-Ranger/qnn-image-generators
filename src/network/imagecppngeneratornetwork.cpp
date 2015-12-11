@@ -19,11 +19,11 @@ ImageCPPNGeneratorNetwork::ImageCPPNGeneratorNetwork(qint32 len_input, qint32 le
     AbstractNeuralNetwork(len_input, len_output),
     _config(config)
 {
-    if(Q_UNLIKELY(_config.max_size <= 0))
+    if(Q_UNLIKELY(_config.max_size < 0))
     {
         QNN_FATAL_MSG("Max size must be greater than 0");
     }
-    if(Q_UNLIKELY(_config.min_size <= 0))
+    if(Q_UNLIKELY(_config.min_size < 0))
     {
         QNN_FATAL_MSG("Min size must be greater than 0");
     }
@@ -188,7 +188,7 @@ double ImageCPPNGeneratorNetwork::applyFunction(double value, qint32 geneValue)
         return qTan(value);
         break;
     case 3:
-        // Idendity
+        // Identity
         return value;
         break;
     case 4:
