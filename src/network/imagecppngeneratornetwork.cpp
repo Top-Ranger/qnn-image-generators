@@ -78,7 +78,7 @@ ImageCPPNGeneratorNetwork::ImageCPPNGeneratorNetwork() :
 
 void ImageCPPNGeneratorNetwork::_initialise()
 {
-    if(_gene->segments()[0].size() < (1 + 4*2 + _gene->segments().size() * 2 + 3*2))
+    if(_gene->segments()[0].size() < (1 + 4*2 + _config.max_size * 2 + 3*2))
     {
         QNN_FATAL_MSG("Segment size do not fit");
     }
@@ -122,6 +122,11 @@ void ImageCPPNGeneratorNetwork::_processInput(QList<double> input)
             QRgb pixel = qRgb(r, g, b);
             image.setPixel(width, height, pixel);
         }
+    }
+
+    if(!image.save(_config.image_path))
+    {
+        QNN_WARNING_MSG(QString("Could not save image to %1").arg(_config.image_path));
     }
 }
 

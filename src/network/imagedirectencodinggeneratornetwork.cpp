@@ -48,7 +48,7 @@ ImageDirectEncodingGeneratorNetwork::ImageDirectEncodingGeneratorNetwork(qint32 
     {
         QNN_FATAL_MSG("Size gets to huge, decrease width or height");
     }
-    size = _size;
+    _size = size;
 }
 
 ImageDirectEncodingGeneratorNetwork::~ImageDirectEncodingGeneratorNetwork()
