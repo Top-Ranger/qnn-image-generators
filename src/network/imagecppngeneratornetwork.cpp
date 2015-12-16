@@ -86,7 +86,6 @@ void ImageCPPNGeneratorNetwork::_initialise()
 
 void ImageCPPNGeneratorNetwork::_processInput(QList<double> input)
 {
-    // TODO implement
     Q_UNUSED(input);
     QImage image(_config.width, _config.height, QImage::Format_RGB32);
     qint32 x_center = _config.width / 2;
