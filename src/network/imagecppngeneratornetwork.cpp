@@ -29,6 +29,7 @@
 
 using CommonNetworkFunctions::sigmoid;
 using CommonNetworkFunctions::weight;
+using CommonNetworkFunctions::floatFromGeneInput;
 using NetworkToXML::writeConfigStart;
 using NetworkToXML::writeConfigEnd;
 using NetworkToXML::writeConfigNeuron;
@@ -108,7 +109,7 @@ void ImageCPPNGeneratorNetwork::_processInput(QList<double> input)
                 double value = 0.0;
                 for(qint32 input = 0; input < neuron + 4; ++input)
                 {
-                    if(_gene->segments()[neuron][1 + (2 * input)] % 2)
+                    if(weight(_gene->segments()[neuron][1 + (2 * input)], 1) > 0)
                     {
                         value += network[input] * weight(_gene->segments()[neuron][1 + (2 * input) + 1], 1);
                     }
@@ -152,7 +153,7 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
         QMap<qint32, double> connection_neuron;
 
         QString function;
-        switch(_gene->segments()[neuron][0]%5)
+        switch(qFloor(floatFromGeneInput(_gene->segments()[neuron][0]%5, 5)))
         {
         case 0:
             function = "cosinus";
@@ -167,6 +168,7 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
             function = "identity";
             break;
         case 4:
+        case 5: // 5 is an extreme corner case which should almost never occure
             function = "sigmoid";
             break;
         default:
@@ -198,7 +200,7 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
 
 double ImageCPPNGeneratorNetwork::applyFunction(double value, qint32 geneValue)
 {
-    switch(geneValue%5)
+    switch(qFloor(floatFromGeneInput(geneValue, 5)))
     {
     case 0:
         return qCos(value);
@@ -210,14 +212,15 @@ double ImageCPPNGeneratorNetwork::applyFunction(double value, qint32 geneValue)
         return qTan(value);
         break;
     case 3:
-        // Identity
-        return value;
+        // Identity between 0,1
+        return qBound(0.0, value, 1.0);
         break;
     case 4:
+    case 5: // 5 is an extreme corner case which should almost never occure
         return sigmoid(value);
         break;
     default:
-        QNN_CRITICAL_MSG("Unknown function" << geneValue%5);
+        QNN_CRITICAL_MSG("Unknown function" << qFloor(floatFromGeneInput(geneValue, 5)));
         return value;
     }
 }
