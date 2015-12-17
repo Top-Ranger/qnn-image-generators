@@ -91,14 +91,14 @@ void ImageCPPNGeneratorNetwork::_processInput(QList<double> input)
     QImage image(_config.width, _config.height, QImage::Format_RGB32);
     qint32 x_center = _config.width / 2;
     qint32 y_center = _config.height / 2;
-    double max_distance = qSqrt((qreal) _config.width * (qreal) _config.height)/2;
+    double max_distance = qSqrt(qPow(_config.width, 2) + qPow(_config.height, 2))/2;
     qint32 neurons = 4 + _gene->segments().size();
 
     for(qint32 width = 0; width < _config.width; ++width)
     {
         for(qint32 height = 0; height < _config.height; ++height)
         {
-            double distance_to_center = qSqrt(qAbs(width - x_center) * qAbs(height - y_center)) / max_distance;
+            double distance_to_center = qSqrt(qPow(width - x_center, 2) + qPow(height - y_center, 2)) / max_distance;
             double network[neurons];
             network[0] = 1.0;
             network[1] = (qreal) width / (qreal) _config.width;
