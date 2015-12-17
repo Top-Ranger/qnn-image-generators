@@ -139,7 +139,6 @@ double ImageCPPNGeneratorNetwork::_getNeuronOutput(qint32 i)
 
 bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
 {
-    // TODO implement
     QMap<QString, QVariant> config_network;
     config_network["width"] = _config.width;
     config_network["height"] = _config.height;
