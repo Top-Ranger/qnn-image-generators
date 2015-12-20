@@ -159,7 +159,7 @@ protected:
      * Currently the following activation functions are used:
      *  - sinus
      *  - cosinus
-     *  - tangens
+     *  - tanh
      *  - identity
      *  - sigmoid
      *

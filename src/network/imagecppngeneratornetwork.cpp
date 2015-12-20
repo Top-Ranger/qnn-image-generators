@@ -18,6 +18,7 @@
 
 #include "imagecppngeneratornetwork.h"
 
+#include <math.h>
 #include <network/lengthchanginggene.h>
 #include <network/commonnetworkfunctions.h>
 #include <network/networktoxml.h>
@@ -161,7 +162,7 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
             function = "sinus";
             break;
         case 2:
-            function = "tangens";
+            function = "tanh";
             break;
         case 3:
             function = "identity";
@@ -208,7 +209,7 @@ double ImageCPPNGeneratorNetwork::applyFunction(double value, qint32 geneValue)
         return qSin(value);
         break;
     case 2:
-        return qTan(value);
+        return tanh(value);
         break;
     case 3:
         // Identity between 0,1
