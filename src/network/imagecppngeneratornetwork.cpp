@@ -153,7 +153,7 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
         QMap<qint32, double> connection_neuron;
 
         QString function;
-        switch(qFloor(floatFromGeneInput(_gene->segments()[neuron][0]%5, 5)))
+        switch(qFloor(floatFromGeneInput(_gene->segments()[neuron][0], 6)))
         {
         case 0:
             function = "cosinus";
@@ -168,7 +168,10 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
             function = "identity";
             break;
         case 4:
-        case 5: // 5 is an extreme corner case which should almost never occure
+            function = "gaussian";
+            break;
+        case 5:
+        case 6: // 6 is an extreme corner case which should almost never occure
             function = "sigmoid";
             break;
         default:
@@ -200,7 +203,7 @@ bool ImageCPPNGeneratorNetwork::_saveNetworkConfig(QXmlStreamWriter *stream)
 
 double ImageCPPNGeneratorNetwork::applyFunction(double value, qint32 geneValue)
 {
-    switch(qFloor(floatFromGeneInput(geneValue, 5)))
+    switch(qFloor(floatFromGeneInput(geneValue, 6)))
     {
     case 0:
         return qCos(value);
@@ -216,7 +219,10 @@ double ImageCPPNGeneratorNetwork::applyFunction(double value, qint32 geneValue)
         return qBound(0.0, value, 1.0);
         break;
     case 4:
-    case 5: // 5 is an extreme corner case which should almost never occure
+        return qExp(-1 * (qPow(value, 2)) / 0.5);
+        break;
+    case 5:
+    case 6: // 6 is an extreme corner case which should almost never occure
         return sigmoid(value);
         break;
     default:

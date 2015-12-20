@@ -161,6 +161,7 @@ protected:
      *  - cosinus
      *  - tanh
      *  - identity
+     *  - gaussian
      *  - sigmoid
      *
      * \param value The internal value of the neuron
