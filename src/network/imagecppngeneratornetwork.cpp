@@ -60,11 +60,11 @@ ImageCPPNGeneratorNetwork::~ImageCPPNGeneratorNetwork()
 GenericGene *ImageCPPNGeneratorNetwork::getRandomGene()
 {
     LengthChangingGene::config config;
-    config.min_length = _config.min_size;
-    config.max_length = _config.max_size;
-    qint32 lengh = _config.min_size + qrand()%(_config.max_size - _config.min_size) + 3; // 3 Output neurons
-
-    return new LengthChangingGene(lengh, 1 + 4*2 + _config.max_size * 2 + 3*2);
+    // 3 Output neurons -> + 3
+    config.min_length = _config.min_size + 3;
+    config.max_length = _config.max_size + 3;
+    qint32 lengh = _config.min_size + qrand()%(_config.max_size - _config.min_size) + 3;
+    return new LengthChangingGene(lengh, 1 + 4*2 + _config.max_size * 2 + 3*2, config);
 }
 
 AbstractNeuralNetwork *ImageCPPNGeneratorNetwork::createConfigCopy()
