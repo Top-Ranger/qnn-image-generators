@@ -22,6 +22,7 @@
 #include <network/lengthchanginggene.h>
 #include <network/commonnetworkfunctions.h>
 #include <network/networktoxml.h>
+#include <randomhelper.h>
 
 #include <QtCore/qmath.h>
 #include <QImage>
@@ -63,7 +64,7 @@ GenericGene *ImageCPPNGeneratorNetwork::getRandomGene()
     // 3 Output neurons -> + 3
     config.min_length = _config.min_size + 3;
     config.max_length = _config.max_size + 3;
-    qint32 lengh = _config.min_size + qrand()%(_config.max_size - _config.min_size) + 3;
+    qint32 lengh = _config.min_size + RandomHelper::getRandomInt(0, _config.max_size - _config.min_size - 1) + 3;
     return new LengthChangingGene(lengh, 1 + 4*2 + _config.max_size * 2 + 3*2, config);
 }
 
